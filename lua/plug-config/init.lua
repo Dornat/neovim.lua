@@ -1,0 +1,12 @@
+require'plug-config.icons'
+require'plug-config.lualine'
+require'plug-config.treesitter'
+require'plug-config.telescope'
+require'plug-config.nerdtree'
+require'plug-config.nvim-comment'
+require'plug-config.nvim-autopairs'
+require'plug-config.indent-blankline'
+require'plug-config.sniprun'
+require'plug-config.gitsigns'
+
+require'plug-config.lsp'

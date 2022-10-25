@@ -81,5 +81,7 @@ nmap('<leader>fs', "<cmd>lua require('telescope.builtin').current_buffer_fuzzy_f
 nmap('<leader>fr', "<cmd>lua require('telescope.builtin').lsp_references()<cr>")
 nmap('<leader>fw', "<cmd>lua require('plug-config.telescope').grep_workspace_symbols()<cr>")
 nmap('<leader>fl', "<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<cr>")
+nmap('gr', "<cmd>lua require('telescope.builtin').lsp_references()<cr>")
+nmap('gd', "<cmd>lua require('telescope.builtin').lsp_definitions()<cr>")
 
 return M

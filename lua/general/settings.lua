@@ -43,5 +43,6 @@ vim.cmd [[autocmd Filetype css setlocal tabstop=2 shiftwidth=2 softtabstop=0 exp
 vim.cmd [[autocmd Filetype json setlocal tabstop=2 shiftwidth=2 softtabstop=0 expandtab]]
 vim.cmd [[autocmd Filetype scss setlocal tabstop=2 shiftwidth=2 softtabstop=0 expandtab]]
 vim.cmd [[autocmd Filetype typescript setlocal tabstop=2 shiftwidth=2 softtabstop=0 expandtab]]
+vim.cmd [[autocmd Filetype typescriptreact setlocal tabstop=2 shiftwidth=2 softtabstop=0 expandtab]]
 vim.cmd [[autocmd Filetype yaml setlocal tabstop=2 shiftwidth=2 softtabstop=0 expandtab]]
 vim.cmd [[autocmd Filetype yml setlocal tabstop=2 shiftwidth=2 softtabstop=0 expandtab]]

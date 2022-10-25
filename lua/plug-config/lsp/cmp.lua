@@ -3,7 +3,9 @@ local on_attach = require'plug-config.lsp.utils'.on_attach
 local sumneko_opts = require'plug-config.lsp.sumneko'.opts
 local phpactor_opts = require'plug-config.lsp.phpactor'.opts
 local psalm_opts = require'plug-config.lsp.psalm'.opts
+-- local solang_opts = require'plug-config.lsp.solang'.opts
 local table_merge = require'util'.table_merge
+local lspkind = require'lspkind'
 
 
 
@@ -30,7 +32,11 @@ local servers = {
   {
     name = 'sumneko_lua',
     opts = sumneko_opts
-  }
+  },
+  -- {
+  --   name = 'solang',
+  --   opts = solang_opts
+  -- },
 }
 
 local lsp_opts = {
@@ -58,24 +64,32 @@ end
 vim.o.completeopt = 'menuone,noselect'
 
 -- luasnip setup
-local luasnip = require 'luasnip'
+local luasnip = require'luasnip'
+
+local source_mapping = {
+	buffer = "[Buffer]",
+	nvim_lsp = "[LSP]",
+	nvim_lua = "[Lua]",
+	cmp_tabnine = "[TN]",
+	path = "[Path]",
+}
 
 -- nvim-cmp setup
 local cmp = require 'cmp'
 cmp.setup {
-  snippet = {
-    expand = function(args)
-      require('luasnip').lsp_expand(args.body)
-    end,
-  },
+  -- snippet = {
+  --   expand = function(args)
+  --     require('luasnip').lsp_expand(args.body)
+  --   end,
+  -- },
   mapping = {
     ['<C-p>'] = cmp.mapping.select_prev_item(),
     ['<C-n>'] = cmp.mapping.select_next_item(),
     ['<C-k>'] = cmp.mapping.scroll_docs(-4),
     ['<C-j>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.close(),
-    ['<C-f>'] = cmp.mapping.confirm {
+    ['<C-c>'] = cmp.mapping.close(),
+    ['<C-e>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     },
@@ -98,8 +112,32 @@ cmp.setup {
       end
     end,
   },
+  formatting = {
+    format = function(entry, vim_item)
+      vim_item.kind = lspkind.presets.default[vim_item.kind]
+      local menu = source_mapping[entry.source.name]
+      if entry.source.name == 'cmp_tabnine' then
+        if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then
+          menu = entry.completion_item.data.detail .. ' ' .. menu
+        end
+        vim_item.kind = ''
+      end
+      vim_item.menu = menu
+      return vim_item
+    end
+--     format = lspkind.cmp_format({
+--       with_text = false, -- do not show text alongside icons
+--       maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+--       -- The function below will be called before any actual modifications from lspkind
+--       -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
+--       -- before = function (entry, vim_item)
+--         --   return vim_item
+--         -- end
+--     })
+  },
   sources = {
-    { name = 'nvim_lsp' },
     { name = 'luasnip' },
+    { name = 'cmp_tabnine' },
+    { name = 'nvim_lsp' },
   },
 }

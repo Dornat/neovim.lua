@@ -1,5 +1,4 @@
 local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-print(vim.inspect(vim.fn.glob('')))
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   packer_bootstrap = vim.fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
 end
@@ -8,6 +7,7 @@ end
 return require('packer').startup(function(use)
   -- The best color scheme in the universe!
   use 'morhetz/gruvbox'
+
   -- Status line.
   use {
     'nvim-lualine/lualine.nvim',
@@ -61,23 +61,55 @@ return require('packer').startup(function(use)
   use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp.
   use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp.
   use 'L3MON4D3/LuaSnip' -- Snippets plugin.
+  use {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'} -- AI.
+  use 'onsails/lspkind-nvim' --LSP completion icons.
+
+
+  -- Format code in the file (for prettier support).
+  use 'mhartington/formatter.nvim'
 
   -- Execute code in file.
   use {
     'michaelb/sniprun',
     run = 'bash ./install.sh',
-    required = {
-      { 'rcarriga/nvim-notify' }
+    requires = {
+      'rcarriga/nvim-notify'
     }
   }
 
+  -- Git illegal plugin.
+  use 'tpope/vim-fugitive'
+  -- Git log plugin.
+  use {
+    'junegunn/gv.vim',
+    requires = {
+      'tpope/vim-fugitive'
+    }
+  }
   -- Git signs in gutter.
   use {
     'lewis6991/gitsigns.nvim',
     requires = {
       'nvim-lua/plenary.nvim'
-    },
+    }
   }
+
+  use {
+    'ahmedkhalf/project.nvim',
+    config = function()
+      require("project_nvim").setup {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end
+  }
+
+  -- Session manager plugin.
+  use 'Shatur/neovim-session-manager'
+
+  -- Solidity syntax support.
+  use 'tomlion/vim-solidity'
 
   --
   -- use {

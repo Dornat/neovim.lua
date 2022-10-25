@@ -13,3 +13,6 @@ require'nvim-treesitter.configs'.setup {
     additional_vim_regex_highlighting = {'php'},
   },
 }
+
+vim.g.foldmethod = 'expr'
+vim.g.foldexpr = 'nvim_treesitter#foldexpr()'

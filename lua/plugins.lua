@@ -1,123 +1,36 @@
-local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  packer_bootstrap = vim.fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({ "git", "clone", "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git", "--branch=stable", lazypath })
 end
+vim.opt.rtp:prepend(lazypath)
 
-
-return require('packer').startup(function(use)
-  -- The best color scheme in the universe!
-  use 'morhetz/gruvbox'
-
-  -- Status line.
-  use {
-    'nvim-lualine/lualine.nvim',
-    -- Nerd icons.
-    requires = {'kyazdani42/nvim-web-devicons', opt = true}
-  }
-
-  -- Treesitter.
-  use {
-    'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate'
-  }
-  use 'nvim-treesitter/playground'
-  -- TODO Delete
-  use 'nvim-treesitter/nvim-tree-docs'
-  use {
-    'kkoomen/vim-doge',
-    run = function ()
-      vim.fn['doge#install']()
-    end
-  }
-
-  -- Telescope.
-  use {
-    'nvim-telescope/telescope.nvim',
-    requires = { {'nvim-lua/plenary.nvim'} }
-  }
-  -- Fzf for Telescope.
-  use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-  -- Proper root directory.
-  use 'airblade/vim-rooter'
-
-  -- Almost like NerdTree but not really.
-  use {
-    'kyazdani42/nvim-tree.lua',
-    requires = {
-      'kyazdani42/nvim-web-devicons', -- optional, for file icon
-    }
-  }
-
-  -- Comment stuff out.
-  use 'terrortylor/nvim-comment'
-  -- Show indentations.
-  use 'lukas-reineke/indent-blankline.nvim'
-  -- Automatically create pairs for symbols.
-  use 'windwp/nvim-autopairs'
-
-  -- LSP.
-  use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client.
-  use 'hrsh7th/nvim-cmp' -- Autocompletion plugin.
-  use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp.
-  use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp.
-  use 'L3MON4D3/LuaSnip' -- Snippets plugin.
-  use {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'} -- AI.
-  use 'onsails/lspkind-nvim' --LSP completion icons.
-
-
-  -- Format code in the file (for prettier support).
-  use 'mhartington/formatter.nvim'
-
-  -- Execute code in file.
-  use {
-    'michaelb/sniprun',
-    run = 'bash ./install.sh',
-    requires = {
-      'rcarriga/nvim-notify'
-    }
-  }
-
-  -- Git illegal plugin.
-  use 'tpope/vim-fugitive'
-  -- Git log plugin.
-  use {
-    'junegunn/gv.vim',
-    requires = {
-      'tpope/vim-fugitive'
-    }
-  }
-  -- Git signs in gutter.
-  use {
-    'lewis6991/gitsigns.nvim',
-    requires = {
-      'nvim-lua/plenary.nvim'
-    }
-  }
-
-  use {
-    'ahmedkhalf/project.nvim',
-    config = function()
-      require("project_nvim").setup {
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-      }
-    end
-  }
-
-  -- Session manager plugin.
-  use 'Shatur/neovim-session-manager'
-
-  -- Solidity syntax support.
-  use 'tomlion/vim-solidity'
-
-  --
-  -- use {
-  --   'CRAG666/code_runner.nvim',
-  --   requires = 'nvim-lua/plenary.nvim'
-  -- }
-
-  --if packer_bootstrap then
-  --  require('packer').sync()
-  --end
-end)
+require("lazy").setup({
+  'morhetz/gruvbox',
+  'nvim-tree/nvim-web-devicons',
+  { 'nvim-tree/nvim-tree.lua', dependencies = { 'nvim-tree/nvim-web-devicons' } },
+  { 'nvim-lualine/lualine.nvim', dependencies = { 'nvim-tree/nvim-web-devicons' } },
+  { 'nvim-telescope/telescope.nvim', dependencies = { 'nvim-lua/plenary.nvim' } },
+  { 'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' },
+  { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate', config = function() require'plug-config.treesitter' end },
+  'airblade/vim-rooter',
+  'terrortylor/nvim-comment',
+  'lukas-reineke/indent-blankline.nvim',
+  'windwp/nvim-autopairs',
+  'williamboman/mason.nvim',
+  'neovim/nvim-lspconfig',
+  'hrsh7th/nvim-cmp',
+  'hrsh7th/cmp-nvim-lsp',
+  'saadparwaiz1/cmp_luasnip',
+  'L3MON4D3/LuaSnip',
+  { 'tzachar/cmp-tabnine', build = './install.sh', dependencies = { 'hrsh7th/nvim-cmp' } },
+  'onsails/lspkind-nvim',
+  { 'fatih/vim-go', build = ':GoUpdateBinaries' },
+  { 'mfussenegger/nvim-lint' },
+  'mfussenegger/nvim-dap',
+  'mhartington/formatter.nvim',
+  'tpope/vim-fugitive',
+  { 'junegunn/gv.vim', dependencies = { 'tpope/vim-fugitive' } },
+  { 'lewis6991/gitsigns.nvim', dependencies = { 'nvim-lua/plenary.nvim' } },
+  'OXY2DEV/markview.nvim',
+})

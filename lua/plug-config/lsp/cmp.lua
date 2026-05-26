@@ -1,17 +1,15 @@
 local nvim_lsp = require('lspconfig')
 local on_attach = require'plug-config.lsp.utils'.on_attach
-local sumneko_opts = require'plug-config.lsp.sumneko'.opts
+--local sumneko_opts = require'plug-config.lsp.sumneko'.opts
 local phpactor_opts = require'plug-config.lsp.phpactor'.opts
 local psalm_opts = require'plug-config.lsp.psalm'.opts
 -- local solang_opts = require'plug-config.lsp.solang'.opts
 local table_merge = require'util'.table_merge
 local lspkind = require'lspkind'
 
-
-
 -- Add additional capabilities supported by nvim-cmp
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 -- Use a loop to conveniently call 'setup' on multiple servers and
@@ -21,6 +19,8 @@ local servers = {
   'rust_analyzer',
   'pyright',
   'tsserver',
+  'gopls',
+  'angularls',
   {
     name = 'psalm',
     opts = psalm_opts
@@ -29,10 +29,10 @@ local servers = {
     name = 'phpactor',
     opts = phpactor_opts
   },
-  {
-    name = 'sumneko_lua',
-    opts = sumneko_opts
-  },
+  -- {
+  --   name = 'sumneko_lua',
+  --   opts = sumneko_opts
+  -- },
   -- {
   --   name = 'solang',
   --   opts = solang_opts
@@ -77,11 +77,11 @@ local source_mapping = {
 -- nvim-cmp setup
 local cmp = require 'cmp'
 cmp.setup {
-  -- snippet = {
-  --   expand = function(args)
-  --     require('luasnip').lsp_expand(args.body)
-  --   end,
-  -- },
+  snippet = {
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body)
+    end,
+  },
   mapping = {
     ['<C-p>'] = cmp.mapping.select_prev_item(),
     ['<C-n>'] = cmp.mapping.select_next_item(),
@@ -141,3 +141,4 @@ cmp.setup {
     { name = 'nvim_lsp' },
   },
 }
+

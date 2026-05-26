@@ -68,11 +68,10 @@ nmap('<leader>ff', "<cmd>lua require('plug-config.telescope').project_files()<cr
 
 nmap('<leader>fq', "<cmd>lua require('telescope.builtin').quickfix()<cr>")
 nmap('<leader>fm', "<cmd>lua require('telescope.builtin').marks()<cr>")
-nmap('<leader>fe', "<cmd>lua require('telescope.builtin').file_browser()<cr>")
-nmap('<leader>fp', "<cmd>lua require('telescope.builtin').git_files()<cr>")
 nmap('<leader>fd', "<cmd>lua require('telescope.builtin').find_files()<cr>")
 nmap('<leader>fb', "<cmd>lua require('telescope.builtin').buffers()<cr>")
 nmap('<leader>fg', "<cmd>lua require('telescope.builtin').live_grep()<cr>")
+nmap('<leader>ft', "<cmd>lua require('telescope.builtin').grep_string()<cr>")
 nmap('<leader>fo', "<cmd>lua require('plug-config.telescope').live_grep_in_dir()<cr>")
 nmap('<leader>fu', "<cmd>lua require('telescope.builtin').jumplist()<cr>")
 nmap('<leader>fs', "<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>")

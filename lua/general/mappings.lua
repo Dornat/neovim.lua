@@ -1,6 +1,6 @@
-local map = require'util'.map
-local nmap = require'util'.nmap
-local imap = require'util'.imap
+local map = require 'util'.map
+local nmap = require 'util'.nmap
+local imap = require 'util'.imap
 
 -- Map leader key to Space.
 map('', '<Space>', '<Nop>')

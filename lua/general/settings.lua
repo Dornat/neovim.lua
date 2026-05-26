@@ -6,8 +6,8 @@ vim.o.wrap = false
 vim.o.encoding = 'utf-8'
 -- The encoding written to file.
 vim.o.fileencoding = 'utf-8'
--- For terminal colors.
-vim.o.termguicolors = true
+-- For terminal colors. Can cause issues with colors and colorscheme in general.
+--vim.o.termguicolors = true
 vim.o.background = 'dark'
 -- Enable mouse.
 vim.o.mouse = 'a'

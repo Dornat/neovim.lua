@@ -60,6 +60,6 @@ require("nvim-tree").setup {
 
 nmap('<leader>e', ':lua vim.api.nvim_command(\'NvimTreeToggle\')<cr>')
 -- Collapse all opened folders.
-nmap('<leader>-', ':lua require\'nvim-tree.lib\'.collapse_all()<cr>')
+nmap('<leader>-', ':NvimTreeCollapse<cr>')
 -- Find current file in the tree.
-nmap('<leader>=', ':lua require\'nvim-tree\'.find_file(true)<cr>')
+nmap('<leader>=', ':NvimTreeFindFile<cr>')

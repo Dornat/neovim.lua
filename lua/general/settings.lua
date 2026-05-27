@@ -38,6 +38,9 @@ vim.opt.clipboard:append('unnamedplus')
 -- Display a vertical line on 120 character.
 vim.wo.cc = '120'
 -- File specific spacing.
+vim.opt.list = false
+vim.opt.listchars = { space = '·', tab = '→ ', eol = '¶', trail = '~' }
+
 vim.cmd [[autocmd Filetype lua setlocal tabstop=2 shiftwidth=2 softtabstop=0 expandtab]]
 vim.cmd [[autocmd Filetype css setlocal tabstop=2 shiftwidth=2 softtabstop=0 expandtab]]
 vim.cmd [[autocmd Filetype json setlocal tabstop=2 shiftwidth=2 softtabstop=0 expandtab]]

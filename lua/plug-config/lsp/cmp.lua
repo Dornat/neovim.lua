@@ -1,64 +1,34 @@
-local nvim_lsp = require('lspconfig')
 local on_attach = require'plug-config.lsp.utils'.on_attach
---local sumneko_opts = require'plug-config.lsp.sumneko'.opts
 local phpactor_opts = require'plug-config.lsp.phpactor'.opts
 local psalm_opts = require'plug-config.lsp.psalm'.opts
--- local solang_opts = require'plug-config.lsp.solang'.opts
-local table_merge = require'util'.table_merge
 local lspkind = require'lspkind'
 
--- Add additional capabilities supported by nvim-cmp
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
--- Enable some language servers with the additional completion capabilities offered by nvim-cmp
--- Use a loop to conveniently call 'setup' on multiple servers and
--- map buffer local keybindings when the language server attaches
-local servers = {
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    on_attach(client, args.buf)
+  end,
+})
+
+vim.lsp.config('*', {
+  capabilities = capabilities,
+})
+
+vim.lsp.config('psalm', psalm_opts)
+vim.lsp.config('phpactor', phpactor_opts)
+
+vim.lsp.enable({
   'clangd',
   'rust_analyzer',
   'pyright',
-  'tsserver',
+  'ts_ls',
   'gopls',
-  'angularls',
-  {
-    name = 'psalm',
-    opts = psalm_opts
-  },
-  {
-    name = 'phpactor',
-    opts = phpactor_opts
-  },
-  -- {
-  --   name = 'sumneko_lua',
-  --   opts = sumneko_opts
-  -- },
-  -- {
-  --   name = 'solang',
-  --   opts = solang_opts
-  -- },
-}
-
-local lsp_opts = {
-  capabilities = capabilities,
-  on_attach = on_attach,
-  flags = {
-    debounce_text_changes = 150,
-  }
-}
-
--- Iterate through servers list. If the server item is a table than grep
--- config options from the table and append lsp_opts to it, else get server name
--- and set lsp_opts.
-for key, serv in pairs(servers) do
-  if type(serv) == 'table' then
-    local serv_opts = servers[key].opts
-    local this_spec_opts = table_merge(serv_opts, lsp_opts)
-    nvim_lsp[servers[key].name].setup(this_spec_opts)
-  else
-    nvim_lsp[serv].setup(lsp_opts)
-  end
-end
+  'psalm',
+  'phpactor',
+})
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
@@ -70,7 +40,6 @@ local source_mapping = {
 	buffer = "[Buffer]",
 	nvim_lsp = "[LSP]",
 	nvim_lua = "[Lua]",
-	cmp_tabnine = "[TN]",
 	path = "[Path]",
 }
 
@@ -115,14 +84,7 @@ cmp.setup {
   formatting = {
     format = function(entry, vim_item)
       vim_item.kind = lspkind.presets.default[vim_item.kind]
-      local menu = source_mapping[entry.source.name]
-      if entry.source.name == 'cmp_tabnine' then
-        if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then
-          menu = entry.completion_item.data.detail .. ' ' .. menu
-        end
-        vim_item.kind = ''
-      end
-      vim_item.menu = menu
+      vim_item.menu = source_mapping[entry.source.name]
       return vim_item
     end
 --     format = lspkind.cmp_format({
@@ -137,7 +99,6 @@ cmp.setup {
   },
   sources = {
     { name = 'luasnip' },
-    { name = 'cmp_tabnine' },
     { name = 'nvim_lsp' },
   },
 }

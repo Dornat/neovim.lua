@@ -1,34 +1,34 @@
-local nmap = require'util'.nmap
+local nmap = require 'util'.nmap
 
-require'telescope'.setup {
+require 'telescope'.setup {
   defaults = {
     preview = {
-      timeout = 1000
-    }
+      timeout = 1000,
+    },
   },
   pickers = {
     find_files = {
       --hidden = true,
       find_command = {
-        "rg",
-        "--files",
-        "--hidden",
-        "--no-ignore"
-      }
+        'rg',
+        '--files',
+        '--hidden',
+        '--no-ignore',
+      },
     },
     lsp_references = {
       layout_strategy = 'vertical',
       layout_config = {
-        width = 0.98
+        width = 0.98,
       },
       path_display = {
         shorten = {
           len = 3,
-          exclude = {1, -3, -2, -1}
-        }
-      }
+          exclude = { 1, -3, -2, -1 },
+        },
+      },
     },
-  }
+  },
 }
 
 -- Load fzf here.
@@ -38,16 +38,16 @@ local M = {}
 
 -- Falling back to find_files if git_files can't find a .git directory.
 M.project_files = function()
-  local ok = pcall(require'telescope.builtin'.git_files, {})
+  local ok = pcall(require 'telescope.builtin'.git_files, {})
   if not ok then
-    require'telescope.builtin'.find_files()
+    require 'telescope.builtin'.find_files()
   end
 end
 
 -- Provide a string to search for a symbol in the whole workspace.
 M.grep_workspace_symbols = function()
-  require'telescope.builtin'.lsp_workspace_symbols {
-    query = vim.fn.input('Enter symbols > ')
+  require 'telescope.builtin'.lsp_workspace_symbols {
+    query = vim.fn.input('Enter symbols > '),
   }
 end
 
@@ -56,11 +56,11 @@ M.live_grep_in_dir = function()
   local prompt = 'Live grepping in dir'
   local dir = vim.fn.input(prompt .. ' > ')
 
-  require'telescope.builtin'.live_grep {
+  require 'telescope.builtin'.live_grep {
     prompt_title = prompt .. ': ' .. dir .. '/',
     search_dirs = {
-      dir
-    }
+      dir,
+    },
   }
 end
 

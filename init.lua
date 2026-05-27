@@ -1,4 +1,4 @@
-require'general'
-require'plugins'
-require'theme'
-require'plug-config'
+require 'general'
+require 'plugins'
+require 'theme'
+require 'plug-config'

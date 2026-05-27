@@ -1,7 +1,7 @@
-local on_attach = require'plug-config.lsp.utils'.on_attach
-local phpactor_opts = require'plug-config.lsp.phpactor'.opts
-local psalm_opts = require'plug-config.lsp.psalm'.opts
-local lspkind = require'lspkind'
+local on_attach = require 'plug-config.lsp.utils'.on_attach
+local phpactor_opts = require 'plug-config.lsp.phpactor'.opts
+local psalm_opts = require 'plug-config.lsp.psalm'.opts
+local lspkind = require 'lspkind'
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
@@ -34,13 +34,13 @@ vim.lsp.enable({
 vim.o.completeopt = 'menuone,noselect'
 
 -- luasnip setup
-local luasnip = require'luasnip'
+local luasnip = require 'luasnip'
 
 local source_mapping = {
-	buffer = "[Buffer]",
-	nvim_lsp = "[LSP]",
-	nvim_lua = "[Lua]",
-	path = "[Path]",
+  buffer = '[Buffer]',
+  nvim_lsp = '[LSP]',
+  nvim_lua = '[Lua]',
+  path = '[Path]',
 }
 
 -- nvim-cmp setup
@@ -86,20 +86,19 @@ cmp.setup {
       vim_item.kind = lspkind.presets.default[vim_item.kind]
       vim_item.menu = source_mapping[entry.source.name]
       return vim_item
-    end
---     format = lspkind.cmp_format({
---       with_text = false, -- do not show text alongside icons
---       maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
---       -- The function below will be called before any actual modifications from lspkind
---       -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
---       -- before = function (entry, vim_item)
---         --   return vim_item
---         -- end
---     })
+    end,
+    --     format = lspkind.cmp_format({
+    --       with_text = false, -- do not show text alongside icons
+    --       maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+    --       -- The function below will be called before any actual modifications from lspkind
+    --       -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
+    --       -- before = function (entry, vim_item)
+    --         --   return vim_item
+    --         -- end
+    --     })
   },
   sources = {
     { name = 'luasnip' },
     { name = 'nvim_lsp' },
   },
 }
-

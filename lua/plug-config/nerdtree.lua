@@ -1,22 +1,22 @@
-local nmap = require'util'.nmap
+local nmap = require 'util'.nmap
 
 local function my_on_attach(bufnr)
-  local api = require "nvim-tree.api"
+  local api = require 'nvim-tree.api'
 
   local function opts(desc)
-    return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+    return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
   end
 
   -- default mappings
   api.config.mappings.default_on_attach(bufnr)
 
   -- custom mappings
-  vim.keymap.set('n', '<C-t>',  api.tree.change_root_to_parent, opts('Up'))
-  vim.keymap.set('n', '?',      api.tree.toggle_help,           opts('Help'))
-  vim.keymap.set('n', 'l',      api.node.open.edit,             opts('Open'))
+  vim.keymap.set('n', '<C-t>', api.tree.change_root_to_parent, opts('Up'))
+  vim.keymap.set('n', '?', api.tree.toggle_help, opts('Help'))
+  vim.keymap.set('n', 'l', api.node.open.edit, opts('Open'))
 end
 
-require("nvim-tree").setup {
+require('nvim-tree').setup {
   on_attach = my_on_attach,
 }
 
@@ -58,7 +58,7 @@ require("nvim-tree").setup {
 --  -- update_cwd = true,
 --}
 
-nmap('<leader>e', ':lua vim.api.nvim_command(\'NvimTreeToggle\')<cr>')
+nmap('<leader>e', ":lua vim.api.nvim_command('NvimTreeToggle')<cr>")
 -- Collapse all opened folders.
 nmap('<leader>-', ':NvimTreeCollapse<cr>')
 -- Find current file in the tree.

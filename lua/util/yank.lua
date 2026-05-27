@@ -36,7 +36,14 @@ M.simulate_yank_highlight = function()
   local bounds = M.get_visual_bounds()
 
   local ns = vim.api.nvim_create_namespace 'simulate_yank_highlight'
-  vim.highlight.range(0, ns, 'IncSearch', { bounds.start_line - 1, bounds.start_col }, { bounds.end_line - 1, bounds.end_col }, { priority = 200 })
+  vim.highlight.range(
+    0,
+    ns,
+    'IncSearch',
+    { bounds.start_line - 1, bounds.start_col },
+    { bounds.end_line - 1, bounds.end_col },
+    { priority = 200 }
+  )
   vim.defer_fn(function()
     vim.api.nvim_buf_clear_namespace(0, ns, 0, -1)
   end, 150)

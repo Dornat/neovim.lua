@@ -1,4 +1,4 @@
-require'nvim-treesitter'.setup()
+require 'nvim-treesitter'.setup()
 
 vim.o.foldmethod = 'expr'
 vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'

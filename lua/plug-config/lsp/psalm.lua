@@ -2,9 +2,9 @@ local M = {}
 
 M.opts = {
   cmd = {
-    "psalm-language-server"
+    'psalm-language-server',
   },
-  filetypes = { "php" }
+  filetypes = { 'php' },
 }
 
 return M

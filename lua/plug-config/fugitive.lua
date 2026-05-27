@@ -1,4 +1,4 @@
-local nmap = require'util'.nmap
+local nmap = require 'util'.nmap
 
 -- Run git status.
 nmap('<leader>gs', ':G<cr>')

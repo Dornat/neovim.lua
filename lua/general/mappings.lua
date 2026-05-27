@@ -35,6 +35,9 @@ nmap('<leader>il', ':set list!<cr>')
 -- Toggle relative line numbers.
 nmap('<leader>rnu', ':set rnu!<cr>')
 
+-- Format with formatter.nvim (fallback when no LSP attached).
+nmap('<leader>f', '<cmd>Format<cr>')
+
 -- For yanking to paste elsewhere like llm
 vim.keymap.set('v', '<leader>ya', function()
   yank.yank_visual_with_path(yank.get_buffer_absolute(), 'absolute')

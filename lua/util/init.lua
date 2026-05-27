@@ -1,19 +1,19 @@
 local M = {}
 
-M.map = function (mode, shortcut, command)
+M.map = function(mode, shortcut, command)
   vim.api.nvim_set_keymap(mode, shortcut, command, { noremap = true, silent = true })
 end
 
-M.nmap = function (shortcut, command)
+M.nmap = function(shortcut, command)
   M.map('n', shortcut, command)
 end
 
-M.imap = function (shortcut, command)
+M.imap = function(shortcut, command)
   M.map('i', shortcut, command)
 end
 
 local function table_clone_internal(t, copies)
-  if type(t) ~= "table" then
+  if type(t) ~= 'table' then
     return t
   end
   copies = copies or {}
@@ -40,12 +40,12 @@ local function table_clone(t)
   return table_clone_internal(t)
 end
 
-M.table_merge = function (...)
-  local tables_to_merge = {...}
-  assert(#tables_to_merge > 1, "There should be at least two tables to merge them")
+M.table_merge = function(...)
+  local tables_to_merge = { ... }
+  assert(#tables_to_merge > 1, 'There should be at least two tables to merge them')
 
   for k, t in ipairs(tables_to_merge) do
-    assert(type(t) == "table", string.format("Expected a table as function parameter %d", k))
+    assert(type(t) == 'table', string.format('Expected a table as function parameter %d', k))
   end
 
   local result = table_clone(tables_to_merge[1])
@@ -53,9 +53,9 @@ M.table_merge = function (...)
   for i = 2, #tables_to_merge do
     local from = tables_to_merge[i]
     for k, v in pairs(from) do
-      if type(v) == "table" then
+      if type(v) == 'table' then
         result[k] = result[k] or {}
-        assert(type(result[k]) == "table", string.format("Expected a table: '%s'", k))
+        assert(type(result[k]) == 'table', string.format("Expected a table: '%s'", k))
         result[k] = M.table_merge(result[k], v)
       else
         result[k] = v

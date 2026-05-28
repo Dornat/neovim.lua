@@ -139,9 +139,10 @@ Leader key: `<Space>`
 | n | `gc{motion}` | Toggle comment over motion |
 | v | `gc` | Toggle comment on selection |
 
-## Yank (with file path)
+## Yank
 
 | Mode | Key | Action |
 |------|-----|--------|
 | v | `<leader>ya` | Yank selection with absolute path |
 | v | `<leader>yr` | Yank selection with relative path |
+| v | `<leader>yy` | Yank selection without path |

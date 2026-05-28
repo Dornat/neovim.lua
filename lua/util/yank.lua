@@ -58,6 +58,21 @@ M.yank_path = function(path, label)
   print('Yanked ' .. label .. ' path: ' .. path)
 end
 
+M.yank_visual = function()
+  local bounds = M.get_visual_bounds()
+
+  local selected_lines = vim.fn.getregion(bounds.start_pos, bounds.end_pos, { type = bounds.mode })
+  local selected_text = table.concat(selected_lines, '\n')
+
+  vim.fn.setreg('+', selected_text)
+
+  M.simulate_yank_highlight()
+  M.exit_visual_mode()
+
+  local line_range = M.format_line_range(bounds.start_line, bounds.end_line)
+  print('Yanked lines ' .. line_range)
+end
+
 M.yank_visual_with_path = function(path, label)
   local bounds = M.get_visual_bounds()
 

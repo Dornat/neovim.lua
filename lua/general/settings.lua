@@ -23,6 +23,8 @@ vim.o.shiftwidth = 4
 vim.bo.expandtab = true
 -- Makes indenting smart.
 vim.bo.smartindent = true
+-- Highlight current line.
+vim.o.cursorline = true
 -- Display line numbers.
 vim.o.number = true
 -- Display relative line numbers.
@@ -38,14 +40,22 @@ vim.opt.clipboard:append('unnamedplus')
 -- Display a vertical line on 120 character.
 vim.wo.cc = '120'
 -- File specific spacing.
-vim.opt.list = false
+vim.opt.list = true
 vim.opt.listchars = { space = '·', tab = '→ ', eol = '¶', trail = '~' }
+
+vim.api.nvim_create_autocmd('FileType', {
+  callback = function()
+    local sw = vim.bo.shiftwidth > 0 and vim.bo.shiftwidth or 2
+    vim.opt_local.listchars = { multispace = '│' .. string.rep(' ', sw - 1) }
+    vim.b.indent_guides_active = true
+  end,
+})
 
 vim.cmd [[autocmd Filetype lua setlocal tabstop=2 shiftwidth=2 softtabstop=0 expandtab]]
 vim.cmd [[autocmd Filetype css setlocal tabstop=2 shiftwidth=2 softtabstop=0 expandtab]]
 vim.cmd [[autocmd Filetype json setlocal tabstop=2 shiftwidth=2 softtabstop=0 expandtab]]
 vim.cmd [[autocmd Filetype scss setlocal tabstop=2 shiftwidth=2 softtabstop=0 expandtab]]
-vim.cmd [[autocmd Filetype typescript setlocal tabstop=2 shiftwidth=2 softtabstop=0 expandtab]]
-vim.cmd [[autocmd Filetype typescriptreact setlocal tabstop=2 shiftwidth=2 softtabstop=0 expandtab]]
+vim.cmd [[autocmd Filetype typescript setlocal tabstop=4 shiftwidth=4 softtabstop=0 expandtab]]
+vim.cmd [[autocmd Filetype typescriptreact setlocal tabstop=4 shiftwidth=4 softtabstop=0 expandtab]]
 vim.cmd [[autocmd Filetype yaml setlocal tabstop=2 shiftwidth=2 softtabstop=0 expandtab]]
 vim.cmd [[autocmd Filetype yml setlocal tabstop=2 shiftwidth=2 softtabstop=0 expandtab]]

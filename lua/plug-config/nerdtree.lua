@@ -8,7 +8,7 @@ local function my_on_attach(bufnr)
   end
 
   -- default mappings
-  api.config.mappings.default_on_attach(bufnr)
+  api.map.on_attach.default(bufnr)
 
   -- custom mappings
   vim.keymap.set('n', '<C-t>', api.tree.change_root_to_parent, opts('Up'))
@@ -18,45 +18,13 @@ end
 
 require('nvim-tree').setup {
   on_attach = my_on_attach,
+  filters = {
+    dotfiles = true,
+  },
+  git = {
+    ignore = true,
+  },
 }
-
--- following options are the default
--- each of these are documented in `:help nvim-tree.OPTION_NAME`
---require'nvim-tree'.setup {
---  respect_buf_cwd = true,
---  -- Force closing neovim when the tree is the last window in the view.
---  -- auto_close          = true,
---  -- Keeps the cursor on the first letter of the filename when movint in the tree.
---  -- hijack_cursor       = true,
---  diagnostics = {
---    enable = true,
---    icons = {
---      hint = "",
---      info = "",
---      warning = "",
---      error = "",
---    }
---  },
---  git = {
---    enable = false,
---    ignore = false,
---    timeout = 0,
---  },
---  view = {
---    mappings = {
---      custom_only = false,
---      list = {
---        { key = {"<CR>", "l", "<2-LeftMouse>"}, cb = tree_cb("edit") },
---        { key = {"<Tab>", "f",               }, cb = tree_cb("preview") },
---      }
---    },
---  },
---  trash = {
---    cmd = "trash",
---    require_confirm = true
---  },
---  -- update_cwd = true,
---}
 
 nmap('<leader>e', ":lua vim.api.nvim_command('NvimTreeToggle')<cr>")
 -- Collapse all opened folders.

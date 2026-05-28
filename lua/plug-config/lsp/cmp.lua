@@ -1,6 +1,5 @@
 local on_attach = require 'plug-config.lsp.utils'.on_attach
 local phpactor_opts = require 'plug-config.lsp.phpactor'.opts
-local psalm_opts = require 'plug-config.lsp.psalm'.opts
 local lspkind = require 'lspkind'
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -17,8 +16,31 @@ vim.lsp.config('*', {
   capabilities = capabilities,
 })
 
-vim.lsp.config('psalm', psalm_opts)
 vim.lsp.config('phpactor', phpactor_opts)
+
+local runtime_path = vim.split(package.path, ';')
+table.insert(runtime_path, 'lua/?.lua')
+table.insert(runtime_path, 'lua/?/init.lua')
+
+vim.lsp.config('lua_ls', {
+  settings = {
+    Lua = {
+      runtime = {
+        version = 'LuaJIT',
+        path = runtime_path,
+      },
+      diagnostics = {
+        globals = { 'vim' },
+      },
+      workspace = {
+        library = vim.api.nvim_get_runtime_file('', true),
+      },
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+})
 
 vim.lsp.enable({
   'clangd',
@@ -26,8 +48,8 @@ vim.lsp.enable({
   'pyright',
   'ts_ls',
   'gopls',
-  'psalm',
   'phpactor',
+  'lua_ls',
 })
 
 -- Set completeopt to have a better completion experience
@@ -87,15 +109,6 @@ cmp.setup {
       vim_item.menu = source_mapping[entry.source.name]
       return vim_item
     end,
-    --     format = lspkind.cmp_format({
-    --       with_text = false, -- do not show text alongside icons
-    --       maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-    --       -- The function below will be called before any actual modifications from lspkind
-    --       -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
-    --       -- before = function (entry, vim_item)
-    --         --   return vim_item
-    --         -- end
-    --     })
   },
   sources = {
     { name = 'luasnip' },

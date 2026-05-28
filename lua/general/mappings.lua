@@ -32,11 +32,56 @@ nmap('<m-d>', ':cp<cr>')
 -- Toggle invisible characters.
 nmap('<leader>il', ':set list!<cr>')
 
+-- Toggle between indent guides and full listchars.
+vim.keymap.set('n', '<leader>ig', function()
+  if vim.b.indent_guides_active then
+    vim.opt_local.listchars = { space = '·', tab = '→ ', eol = '¶', trail = '~' }
+    vim.b.indent_guides_active = false
+  else
+    local sw = vim.bo.shiftwidth > 0 and vim.bo.shiftwidth or 2
+    vim.opt_local.listchars = { multispace = '│' .. string.rep(' ', sw - 1) }
+    vim.b.indent_guides_active = true
+  end
+  vim.opt_local.list = true
+end, { desc = 'Toggle indent guides' })
+
 -- Toggle relative line numbers.
 nmap('<leader>rnu', ':set rnu!<cr>')
 
 -- Format with formatter.nvim (fallback when no LSP attached).
 nmap('<leader>f', '<cmd>Format<cr>')
+
+-- Go to definition: LSP -> ctags -> references fallback.
+vim.keymap.set('n', '<C-]>', function()
+  local clients = vim.lsp.get_clients({ bufnr = 0 })
+  if #clients > 0 then
+    local client = clients[1]
+    local encoding = client.offset_encoding or 'utf-16'
+    local params = vim.lsp.util.make_position_params(0, encoding)
+    vim.lsp.buf_request(0, 'textDocument/definition', params, function(err, result)
+      if result and not vim.tbl_isempty(result) then
+        if not vim.islist(result) then result = { result } end
+        local loc = result[1]
+        local uri = loc.uri or loc.targetUri
+        local range = loc.range or loc.targetSelectionRange
+        local target_file = vim.uri_to_fname(uri)
+        local target_line = range.start.line + 1
+        local current_file = vim.api.nvim_buf_get_name(0)
+        local current_line = vim.api.nvim_win_get_cursor(0)[1]
+        if target_file == current_file and target_line == current_line then
+          require('telescope.builtin').lsp_references()
+        else
+          vim.cmd('edit +' .. target_line .. ' ' .. vim.fn.fnameescape(target_file))
+          vim.api.nvim_win_set_cursor(0, { target_line, range.start.character })
+        end
+      else
+        require('telescope.builtin').lsp_references()
+      end
+    end)
+  else
+    vim.cmd('tag ' .. vim.fn.expand('<cword>'))
+  end
+end, { desc = 'Definition -> ctags -> references' })
 
 -- For yanking to paste elsewhere like llm
 vim.keymap.set('v', '<leader>ya', function()

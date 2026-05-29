@@ -58,9 +58,11 @@ vim.keymap.set('n', '<C-]>', function()
     local client = clients[1]
     local encoding = client.offset_encoding or 'utf-16'
     local params = vim.lsp.util.make_position_params(0, encoding)
-    vim.lsp.buf_request(0, 'textDocument/definition', params, function(err, result)
+    vim.lsp.buf_request(0, 'textDocument/definition', params, function(_, result)
       if result and not vim.tbl_isempty(result) then
-        if not vim.islist(result) then result = { result } end
+        if not vim.islist(result) then
+          result = { result }
+        end
         local loc = result[1]
         local uri = loc.uri or loc.targetUri
         local range = loc.range or loc.targetSelectionRange
@@ -93,3 +95,9 @@ end, { desc = '[Y]ank selection with [R]elative path' })
 vim.keymap.set('v', '<leader>yy', function()
   yank.yank_visual()
 end, { desc = '[Y]ank selection without path' })
+vim.keymap.set('n', '<leader>ypa', function()
+  yank.yank_path(yank.get_buffer_absolute(), 'absolute')
+end, { desc = '[Y]ank [P]ath [A]bsolute' })
+vim.keymap.set('n', '<leader>ypr', function()
+  yank.yank_path(yank.get_buffer_cwd_relative(), 'relative')
+end, { desc = '[Y]ank [P]ath [R]elative' })

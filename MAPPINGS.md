@@ -111,8 +111,13 @@ Leader key: `<Space>`
 |-----|--------|
 | `<leader>dvo` | Open diffview |
 | `<leader>dvc` | Close diffview |
-| `<leader>dvm` | Open merge tool |
 | `<leader>dvh` | Open diffview with ref (prompts for input) |
+| `<leader>dvf` | File history for current file |
+| `<leader>co` | Choose OURS version of conflict (in merge tool) |
+| `<leader>ct` | Choose THEIRS version of conflict (in merge tool) |
+| `<leader>cb` | Choose BASE version of conflict (in merge tool) |
+| `<leader>ca` | Choose ALL versions of conflict (in merge tool) |
+| `]x` / `[x` | Next / previous conflict (in merge tool) |
 
 ## File Tree (nvim-tree)
 
@@ -155,6 +160,8 @@ Leader key: `<Space>`
 | v | `<leader>ya` | Yank selection with absolute path |
 | v | `<leader>yr` | Yank selection with relative path |
 | v | `<leader>yy` | Yank selection without path |
+| n | `<leader>ypa` | Yank absolute path of current file |
+| n | `<leader>ypr` | Yank relative path of current file |
 
 
 

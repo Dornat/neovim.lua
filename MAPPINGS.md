@@ -105,6 +105,15 @@ Leader key: `<Space>`
 | n | `<leader>td` | Toggle deleted |
 | o,x | `ih` | Select hunk (text object) |
 
+## Diffview
+
+| Key | Action |
+|-----|--------|
+| `<leader>dvo` | Open diffview |
+| `<leader>dvc` | Close diffview |
+| `<leader>dvm` | Open merge tool |
+| `<leader>dvh` | Open diffview with ref (prompts for input) |
+
 ## File Tree (nvim-tree)
 
 | Key | Action |

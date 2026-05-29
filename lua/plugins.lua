@@ -45,5 +45,6 @@ require('lazy').setup({
   'tpope/vim-fugitive',
   { 'junegunn/gv.vim', dependencies = { 'tpope/vim-fugitive' } },
   { 'lewis6991/gitsigns.nvim', dependencies = { 'nvim-lua/plenary.nvim' } },
+  'sindrets/diffview.nvim',
   'OXY2DEV/markview.nvim',
 })

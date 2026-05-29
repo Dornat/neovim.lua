@@ -43,6 +43,16 @@ vim.wo.cc = '120'
 vim.opt.list = true
 vim.opt.listchars = { space = '·', tab = '→ ', eol = '¶', trail = '~' }
 
+vim.cmd [[autocmd Filetype lua setlocal tabstop=2 shiftwidth=2 softtabstop=0 expandtab]]
+vim.cmd [[autocmd Filetype css setlocal tabstop=2 shiftwidth=2 softtabstop=0 expandtab]]
+vim.cmd [[autocmd FileType json setlocal tabstop=2 shiftwidth=2 softtabstop=0 expandtab]]
+vim.cmd [[autocmd Filetype scss setlocal tabstop=2 shiftwidth=2 softtabstop=0 expandtab]]
+vim.cmd [[autocmd Filetype typescript setlocal tabstop=4 shiftwidth=4 softtabstop=0 expandtab]]
+vim.cmd [[autocmd Filetype typescriptreact setlocal tabstop=4 shiftwidth=4 softtabstop=0 expandtab]]
+vim.cmd [[autocmd Filetype yaml setlocal tabstop=2 shiftwidth=2 softtabstop=0 expandtab]]
+vim.cmd [[autocmd Filetype yml setlocal tabstop=2 shiftwidth=2 softtabstop=0 expandtab]]
+vim.cmd [[autocmd Filetype sh setlocal tabstop=2 shiftwidth=2 softtabstop=0 expandtab]]
+
 vim.api.nvim_create_autocmd('FileType', {
   callback = function()
     local sw = vim.bo.shiftwidth > 0 and vim.bo.shiftwidth or 2
@@ -50,12 +60,3 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.b.indent_guides_active = true
   end,
 })
-
-vim.cmd [[autocmd Filetype lua setlocal tabstop=2 shiftwidth=2 softtabstop=0 expandtab]]
-vim.cmd [[autocmd Filetype css setlocal tabstop=2 shiftwidth=2 softtabstop=0 expandtab]]
-vim.cmd [[autocmd Filetype json setlocal tabstop=2 shiftwidth=2 softtabstop=0 expandtab]]
-vim.cmd [[autocmd Filetype scss setlocal tabstop=2 shiftwidth=2 softtabstop=0 expandtab]]
-vim.cmd [[autocmd Filetype typescript setlocal tabstop=4 shiftwidth=4 softtabstop=0 expandtab]]
-vim.cmd [[autocmd Filetype typescriptreact setlocal tabstop=4 shiftwidth=4 softtabstop=0 expandtab]]
-vim.cmd [[autocmd Filetype yaml setlocal tabstop=2 shiftwidth=2 softtabstop=0 expandtab]]
-vim.cmd [[autocmd Filetype yml setlocal tabstop=2 shiftwidth=2 softtabstop=0 expandtab]]

@@ -50,6 +50,7 @@ vim.lsp.enable({
   'gopls',
   'phpactor',
   'lua_ls',
+  'bashls',
 })
 
 -- Set completeopt to have a better completion experience

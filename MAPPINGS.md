@@ -146,3 +146,6 @@ Leader key: `<Space>`
 | v | `<leader>ya` | Yank selection with absolute path |
 | v | `<leader>yr` | Yank selection with relative path |
 | v | `<leader>yy` | Yank selection without path |
+
+
+

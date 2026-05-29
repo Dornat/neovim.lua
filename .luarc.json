@@ -1,10 +1,10 @@
 {
-    "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
-    "Lua.workspace.library": [
-        "~/.config/nvim",
-        "~/.local/share/nvim/lazy",
-        "/usr/local/share/nvim/runtime",
-        "/usr/local/lib/nvim",
-        "${3rd}/luassert/library"
-    ]
+  "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
+  "Lua.workspace.library": [
+    "~/.config/nvim",
+    "~/.local/share/nvim/lazy",
+    "/usr/local/share/nvim/runtime",
+    "/usr/local/lib/nvim",
+    "${3rd}/luassert/library"
+  ]
 }

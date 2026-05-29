@@ -30,8 +30,13 @@ require('formatter').setup({
     json = {
       function()
         return {
-          exe = 'npx biome check --fix',
-          args = { '--stdin-file-path', vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)) },
+          exe = 'npx @biomejs/biome check --fix',
+          args = {
+            '--indent-style=space',
+            '--indent-width=2',
+            '--stdin-file-path',
+            vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)),
+          },
           stdin = true,
         }
       end,
@@ -41,6 +46,15 @@ require('formatter').setup({
         return {
           exe = vim.fn.stdpath('data') .. '/mason/bin/stylua',
           args = { '--search-parent-directories', '-' },
+          stdin = true,
+        }
+      end,
+    },
+    sh = {
+      function()
+        return {
+          exe = vim.fn.stdpath('data') .. '/mason/bin/shfmt',
+          args = { '-i', '2', '-filename', vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)) },
           stdin = true,
         }
       end,

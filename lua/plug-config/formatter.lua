@@ -50,6 +50,15 @@ require('formatter').setup({
         }
       end,
     },
+    php = {
+      function()
+        return {
+          exe = vim.fn.stdpath('data') .. '/mason/bin/php-cs-fixer',
+          args = { 'fix', '--using-cache=no', '--no-interaction' },
+          stdin = false,
+        }
+      end,
+    },
     sh = {
       function()
         return {

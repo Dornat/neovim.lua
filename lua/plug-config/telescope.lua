@@ -2,6 +2,10 @@ local nmap = require 'util'.nmap
 
 require 'telescope'.setup {
   defaults = {
+    layout_strategy = 'vertical',
+    layout_config = {
+      width = 0.98,
+    },
     preview = {
       timeout = 1000,
     },

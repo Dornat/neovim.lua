@@ -66,15 +66,21 @@ vim.keymap.set('n', '<C-]>', function()
         local loc = result[1]
         local uri = loc.uri or loc.targetUri
         local range = loc.range or loc.targetSelectionRange
-        local target_file = vim.uri_to_fname(uri)
-        local target_line = range.start.line + 1
-        local current_file = vim.api.nvim_buf_get_name(0)
-        local current_line = vim.api.nvim_win_get_cursor(0)[1]
-        if target_file == current_file and target_line == current_line then
-          require('telescope.builtin').lsp_references()
+        if not vim.startswith(uri, 'file://') then
+          vim.lsp.buf.definition()
         else
-          vim.cmd('edit +' .. target_line .. ' ' .. vim.fn.fnameescape(target_file))
-          vim.api.nvim_win_set_cursor(0, { target_line, range.start.character })
+          local target_file = vim.uri_to_fname(uri)
+          local target_line = range.start.line + 1
+          local current_file = vim.api.nvim_buf_get_name(0)
+          local current_line = vim.api.nvim_win_get_cursor(0)[1]
+          if target_file == current_file and target_line == current_line then
+            require('telescope.builtin').lsp_references()
+          else
+            vim.cmd('edit +' .. target_line .. ' ' .. vim.fn.fnameescape(target_file))
+            local line_count = vim.api.nvim_buf_line_count(0)
+            local line = math.min(target_line, line_count)
+            vim.api.nvim_win_set_cursor(0, { line, range.start.character })
+          end
         end
       else
         require('telescope.builtin').lsp_references()

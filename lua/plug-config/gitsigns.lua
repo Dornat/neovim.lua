@@ -1,5 +1,18 @@
 require 'gitsigns'.setup {
   numhl = true,
+  current_line_blame = false,
+  current_line_blame_opts = {
+    virt_text = true,
+    virt_text_pos = 'eol',
+    delay = 300,
+  },
+  current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
+  blame_formatter = function(_, blame_info)
+    local author = blame_info.author or ''
+    local last = author:match('%S+$') or author
+    local date = os.date('%d/%m/%y', tonumber(blame_info.author_time))
+    return { { last .. ' ' .. date, 'Comment' } }
+  end,
   on_attach = function(bufnr)
     local gs = package.loaded.gitsigns
 
@@ -45,6 +58,8 @@ require 'gitsigns'.setup {
       gs.diffthis('~')
     end)
     map('n', '<leader>td', gs.toggle_deleted)
+    map('n', '<leader>tb', gs.toggle_current_line_blame)
+    map('n', '<leader>gb', '<cmd>Gitsigns blame<cr>')
 
     -- Text object
     map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')

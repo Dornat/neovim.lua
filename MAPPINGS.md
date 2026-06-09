@@ -78,6 +78,7 @@ Leader key: `<Space>`
 | `<leader>fr` | LSP references |
 | `<leader>fw` | Workspace symbols (with prompt) |
 | `<leader>fl` | Dynamic workspace symbols |
+| `<leader>fh` | LSP implementations |
 
 ## Git (Fugitive)
 
@@ -118,6 +119,25 @@ Leader key: `<Space>`
 | `<leader>cb` | Choose BASE version of conflict (in merge tool) |
 | `<leader>ca` | Choose ALL versions of conflict (in merge tool) |
 | `]x` / `[x` | Next / previous conflict (in merge tool) |
+| `g<C-x>`  | Cycle through the available layouts |
+
+## Debug (nvim-dap)
+
+| Key | Action |
+|-----|--------|
+| `<leader>dc` / `<F9>` | Continue / start debugging |
+| `<leader>do` / `<F8>` | Step over |
+| `<leader>di` / `<F7>` | Step into |
+| `<leader>du` | Step out |
+| `<leader>db` | Toggle breakpoint |
+| `<leader>dr` | Open REPL |
+| `<leader>dl` | Run last config |
+| `<leader>dt` | Terminate session |
+| `<leader>dd` | Toggle DAP UI |
+| `<leader>de` | Evaluate expression under cursor |
+| `<leader>df` | Focus current execution frame |
+| `<leader>dk` | Move up the call stack |
+| `<leader>dj` | Move down the call stack |
 
 ## File Tree (nvim-tree)
 

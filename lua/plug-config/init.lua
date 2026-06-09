@@ -11,3 +11,4 @@ require 'plug-config.luasnip'
 
 require 'plug-config.mason'
 require 'plug-config.lsp'
+require 'plug-config.dap'

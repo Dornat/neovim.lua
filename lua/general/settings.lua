@@ -37,6 +37,11 @@ vim.o.timeoutlen = 500
 vim.opt.formatoptions:remove('cro')
 -- Copy paste between vim and everything else.
 vim.opt.clipboard:append('unnamedplus')
+-- Auto-reload files changed outside of Neovim.
+vim.o.autoread = true
+vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter', 'CursorHold' }, {
+  command = 'checktime',
+})
 -- Display a vertical line on 120 character.
 vim.wo.cc = '120'
 -- File specific spacing.

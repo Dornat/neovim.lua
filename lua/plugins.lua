@@ -17,6 +17,7 @@ require('lazy').setup({
   { 'nvim-tree/nvim-tree.lua', dependencies = { 'nvim-tree/nvim-web-devicons' } },
   { 'nvim-lualine/lualine.nvim', dependencies = { 'nvim-tree/nvim-web-devicons' } },
   { 'nvim-telescope/telescope.nvim', dependencies = { 'nvim-lua/plenary.nvim' } },
+  'nvim-telescope/telescope-ui-select.nvim',
   {
     'nvim-telescope/telescope-fzf-native.nvim',
     build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
@@ -41,6 +42,8 @@ require('lazy').setup({
   { 'fatih/vim-go', build = ':GoUpdateBinaries' },
   { 'mfussenegger/nvim-lint' },
   'mfussenegger/nvim-dap',
+  { 'rcarriga/nvim-dap-ui', dependencies = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio' } },
+  'nvim-neotest/nvim-nio',
   'mhartington/formatter.nvim',
   { 'lewis6991/gitsigns.nvim', dependencies = { 'nvim-lua/plenary.nvim' } },
   'sindrets/diffview.nvim',

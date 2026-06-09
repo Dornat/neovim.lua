@@ -37,6 +37,7 @@ require 'telescope'.setup {
 
 -- Load fzf here.
 require('telescope').load_extension('fzf')
+require('telescope').load_extension('ui-select')
 
 local M = {}
 
@@ -86,5 +87,6 @@ nmap('<leader>fw', "<cmd>lua require('plug-config.telescope').grep_workspace_sym
 nmap('<leader>fl', "<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<cr>")
 nmap('gr', "<cmd>lua require('telescope.builtin').lsp_references()<cr>")
 nmap('gd', "<cmd>lua require('telescope.builtin').lsp_definitions()<cr>")
+nmap('<leader>fh', "<cmd>lua require('telescope.builtin').lsp_implementations()<cr>")
 
 return M

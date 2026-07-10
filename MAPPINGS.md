@@ -7,6 +7,7 @@ Leader key: `<Space>`
 | Mode | Key | Action |
 |------|-----|--------|
 | i | `jk` | Escape |
+| t | `jk` | Leave terminal mode (to scroll/scrollback) |
 | n | `<C-f>` | Scroll 10 columns right |
 | n | `<C-b>` | Scroll 10 columns left |
 | i | `<C-f>` | Move cursor right |
@@ -182,6 +183,14 @@ Leader key: `<Space>`
 | v | `<leader>yy` | Yank selection without path |
 | n | `<leader>ypa` | Yank absolute path of current file |
 | n | `<leader>ypr` | Yank relative path of current file |
+
+## Terminal (floating scratch)
+
+| Mode | Key | Action |
+|------|-----|--------|
+| n | `<leader>tt` | Toggle floating terminal |
+| t | `<leader>tt` | Hide floating terminal |
+| t | `jk` | Leave terminal mode (then scroll with `<C-u>`/`<C-d>`, `gg`/`G`, `/`) |
 
 
 

@@ -48,4 +48,10 @@ require('lazy').setup({
   { 'lewis6991/gitsigns.nvim', dependencies = { 'nvim-lua/plenary.nvim' } },
   'sindrets/diffview.nvim',
   'OXY2DEV/markview.nvim',
+  {
+    'iamcco/markdown-preview.nvim',
+    cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
+    ft = { 'markdown' },
+    build = 'cd app && npm install',
+  },
 })

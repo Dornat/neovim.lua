@@ -11,6 +11,9 @@ vim.g.maplocalleader = ' '
 -- I hate escape more than anything else.
 imap('jk', '<esc>')
 
+-- Same escape in the terminal: leave terminal mode so you can scroll/scrollback.
+vim.keymap.set('t', 'jk', [[<C-\><C-n>]], { desc = 'Leave terminal mode' })
+
 -- Horizontal screen scroll.
 nmap('<c-f>', '10zl')
 nmap('<c-b>', '10zh')
@@ -50,6 +53,17 @@ nmap('<leader>rnu', ':set rnu!<cr>')
 
 -- Format with formatter.nvim (fallback when no LSP attached).
 nmap('<leader>f', '<cmd>Format<cr>')
+
+-- Markdown preview in browser.
+nmap('<leader>mp', '<cmd>MarkdownPreview<cr>')
+
+-- Floating scratch terminal: toggle from normal and terminal mode.
+local floatterm = require 'util.floatterm'
+vim.keymap.set('n', '<leader>tt', floatterm.toggle, { desc = 'Toggle floating terminal' })
+vim.keymap.set('t', '<leader>tt', function()
+  vim.cmd('stopinsert')
+  floatterm.toggle()
+end, { desc = 'Toggle floating terminal' })
 
 -- Go to definition: LSP -> ctags -> references fallback.
 vim.keymap.set('n', '<C-]>', function()

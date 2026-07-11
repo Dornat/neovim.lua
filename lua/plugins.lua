@@ -34,6 +34,7 @@ require('lazy').setup({
   'windwp/nvim-autopairs',
   'williamboman/mason.nvim',
   'neovim/nvim-lspconfig',
+  'b0o/SchemaStore.nvim',
   'hrsh7th/nvim-cmp',
   'hrsh7th/cmp-nvim-lsp',
   'saadparwaiz1/cmp_luasnip',

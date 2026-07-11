@@ -42,6 +42,29 @@ vim.lsp.config('lua_ls', {
   },
 })
 
+local has_schema_store, schema_store = pcall(require, 'SchemaStore')
+
+vim.lsp.config('jsonls', {
+  settings = {
+    json = {
+      schemas = has_schema_store and schema_store.json.schemas() or {},
+      validate = { enable = true },
+    },
+  },
+})
+
+vim.lsp.config('yamlls', {
+  settings = {
+    yaml = {
+      schemaStore = {
+        enable = not has_schema_store,
+        url = '',
+      },
+      schemas = has_schema_store and schema_store.yaml.schemas() or {},
+    },
+  },
+})
+
 vim.lsp.enable({
   'clangd',
   'rust_analyzer',
@@ -51,6 +74,9 @@ vim.lsp.enable({
   'phpactor',
   'lua_ls',
   'bashls',
+  'jsonls',
+  'yamlls',
+  'taplo',
 })
 
 -- Set completeopt to have a better completion experience

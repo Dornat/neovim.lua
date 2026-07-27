@@ -12,7 +12,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-  'morhetz/gruvbox',
+  { 'ellisonleao/gruvbox.nvim', priority = 1000 },
   'nvim-tree/nvim-web-devicons',
   { 'nvim-tree/nvim-tree.lua', dependencies = { 'nvim-tree/nvim-web-devicons' } },
   { 'nvim-lualine/lualine.nvim', dependencies = { 'nvim-tree/nvim-web-devicons' } },

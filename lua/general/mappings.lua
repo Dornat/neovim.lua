@@ -101,7 +101,10 @@ vim.keymap.set('n', '<C-]>', function()
       end
     end)
   else
-    vim.cmd('tag ' .. vim.fn.expand('<cword>'))
+    local ok, _ = pcall(vim.cmd, 'tag ' .. vim.fn.expand('<cword>'))
+    if not ok then
+      vim.notify('No LSP client or tags file available', vim.log.levels.WARN)
+    end
   end
 end, { desc = 'Definition -> ctags -> references' })
 

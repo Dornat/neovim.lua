@@ -48,11 +48,32 @@ require('lazy').setup({
   'mhartington/formatter.nvim',
   { 'lewis6991/gitsigns.nvim', dependencies = { 'nvim-lua/plenary.nvim' } },
   'sindrets/diffview.nvim',
-  'OXY2DEV/markview.nvim',
   {
-    'iamcco/markdown-preview.nvim',
-    cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
+    'selimacerbas/markdown-preview.nvim',
+    -- Installed under this name while iamcco's plugin (same repo basename) was still around.
+    -- Kept so lazy doesn't re-clone into the directory that one used.
+    name = 'markdown-preview-acerbas',
+    dependencies = { 'selimacerbas/live-server.nvim' },
+    cmd = { 'MarkdownPreview', 'MarkdownPreviewRefresh', 'MarkdownPreviewStop' },
     ft = { 'markdown' },
-    build = 'cd app && npm install',
+    config = function()
+      require('markdown_preview').setup {
+        default_theme = 'dark',
+        -- 'takeover' shares one server on a fixed port 8421 across nvim sessions, so a second
+        -- session either silently updates the first one's tab or fails to bind. 'multi' gives each
+        -- session its own server on an OS-assigned port.
+        instance_mode = 'multi',
+        -- The plugin only auto-opens a tab when it owns the server and thinks no tab is attached,
+        -- and its attached-tab count goes stale when you close a tab. on_start fires on every
+        -- start, so opening from here works in cases the built-in path misses. Trade-off: running
+        -- :MarkdownPreview twice can leave you with two tabs.
+        open_browser = false,
+        hooks = {
+          on_start = function(url)
+            vim.ui.open(url)
+          end,
+        },
+      }
+    end,
   },
 })

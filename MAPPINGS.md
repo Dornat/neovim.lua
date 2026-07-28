@@ -142,15 +142,60 @@ Leader key: `<Space>`
 
 ## File Tree (nvim-tree)
 
+Custom (from `lua/plug-config/nerdtree.lua`):
+
 | Key | Action |
 |-----|--------|
 | `<leader>e` | Toggle tree |
 | `<leader>-` | Collapse all folders |
 | `<leader>=` | Find current file in tree |
-| `l` | Open file/folder (in tree buffer) |
-| `<C-]>` | Change root to selected folder (in tree buffer) |
-| `<C-t>` | Change root to parent (in tree buffer) |
-| `?` | Toggle help (in tree buffer) |
+| `l` | Open file/folder (custom; default `<C-t>` = new tab is overridden) |
+| `<C-t>` | Change root to parent (custom override) |
+| `?` | Toggle help (custom override) |
+
+File operations (defaults, inside tree buffer):
+
+| Key | Action |
+|-----|--------|
+| `a` | Create file or directory (end name with `/` for a dir) |
+| `d` | Delete permanently (confirmation prompt, no trash) |
+| `D` | Trash (recoverable; uses `gio trash` on this machine) |
+| `r` | Rename |
+| `e` | Rename basename only (keep extension) |
+| `c` | Copy to clipboard |
+| `x` | Cut to clipboard |
+| `p` | Paste into folder under cursor (prompts to rename on name collision) |
+| `y` | Copy filename to system clipboard |
+| `Y` | Copy relative path |
+| `gy` | Copy absolute path |
+| `s` | Open with system default application |
+
+Navigation / view (defaults):
+
+| Key | Action |
+|-----|--------|
+| `<CR>` / `o` | Open file/folder |
+| `<Tab>` | Preview file (keep focus in tree) |
+| `<C-v>` | Open in vertical split |
+| `<C-x>` | Open in horizontal split |
+| `<C-]>` | Change root to selected folder (CD) |
+| `P` | Jump to parent directory |
+| `<BS>` | Close directory |
+| `E` | Expand all |
+| `W` | Collapse all |
+| `R` | Refresh tree |
+| `q` | Close tree |
+| `<C-k>` | Show file info popup |
+
+Filters (defaults):
+
+| Key | Action |
+|-----|--------|
+| `H` | Toggle hidden/dotfiles |
+| `I` | Toggle git-ignored files |
+| `f` | Live filter (fuzzy) |
+| `F` | Clear live filter |
+| `g?` | Full help / mappings list |
 
 ## Completion (nvim-cmp)
 

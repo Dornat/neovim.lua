@@ -70,7 +70,7 @@ Leader key: `<Space>`
 | `<leader>fd` | Find files (all, including hidden) |
 | `<leader>fg` | Live grep |
 | `<leader>ft` | Grep string under cursor |
-| `<leader>fo` | Live grep in specific directory |
+| `<leader>fo` | Live grep in specific directory (uses nvim-tree node under cursor, else prompts) |
 | `<leader>fs` | Fuzzy find in current buffer |
 | `<leader>fb` | Buffers |
 | `<leader>fm` | Marks |

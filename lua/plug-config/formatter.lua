@@ -41,6 +41,9 @@ require('formatter').setup({
         }
       end,
     },
+    html = {
+      require('formatter.filetypes.html').prettier,
+    },
     lua = {
       function()
         return {

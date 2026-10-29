@@ -1,5 +1,6 @@
 local on_attach = require 'plug-config.lsp.utils'.on_attach
-local phpactor_opts = require 'plug-config.lsp.phpactor'.opts
+local intelephense_opts = require 'plug-config.lsp.intelephense'.opts
+local clangd_opts = require 'plug-config.lsp.clangd'.opts
 local lspkind = require 'lspkind'
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -16,7 +17,15 @@ vim.lsp.config('*', {
   capabilities = capabilities,
 })
 
-vim.lsp.config('phpactor', phpactor_opts)
+vim.lsp.config('intelephense', intelephense_opts)
+vim.lsp.config('clangd', clangd_opts)
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto' },
+  callback = function(args)
+    vim.lsp.start(clangd_opts, { bufnr = args.buf })
+  end,
+})
 
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, 'lua/?.lua')
@@ -71,12 +80,13 @@ vim.lsp.enable({
   'pyright',
   'ts_ls',
   'gopls',
-  'phpactor',
+  'intelephense',
   'lua_ls',
   'bashls',
   'jsonls',
   'yamlls',
   'taplo',
+  'html',
 })
 
 -- Set completeopt to have a better completion experience

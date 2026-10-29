@@ -56,10 +56,39 @@ M.grep_workspace_symbols = function()
   }
 end
 
--- Live grep for specific directory.
+-- Resolve a directory from the nvim-tree node under the cursor, if the
+-- current buffer is an nvim-tree window. Returns nil otherwise.
+local function dir_from_nvim_tree()
+  if vim.bo.filetype ~= 'NvimTree' then
+    return nil
+  end
+
+  local ok, api = pcall(require, 'nvim-tree.api')
+  if not ok then
+    return nil
+  end
+
+  local node = api.tree.get_node_under_cursor()
+  if not node or not node.absolute_path then
+    return nil
+  end
+
+  -- Directory node -> that dir; file node -> its parent dir.
+  if node.type == 'directory' then
+    return node.absolute_path
+  end
+  return vim.fn.fnamemodify(node.absolute_path, ':h')
+end
+
+-- Live grep for specific directory. When invoked from nvim-tree, grep the
+-- directory (or parent of the file) under the cursor; otherwise prompt.
 M.live_grep_in_dir = function()
   local prompt = 'Live grepping in dir'
-  local dir = vim.fn.input(prompt .. ' > ')
+  local dir = dir_from_nvim_tree() or vim.fn.input(prompt .. ' > ')
+
+  if dir == '' then
+    return
+  end
 
   require 'telescope.builtin'.live_grep {
     prompt_title = prompt .. ': ' .. dir .. '/',
